@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Secreto - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1><i class="fas fa-ghost"></i> Chat Secreto</h1>
+            <p class="subtitle">Acesso restrito aos membros</p>
+        </div>
+        
+        <form id="loginForm" class="login-form">
+            <div class="input-group">
+                <label for="username"><i class="fas fa-user"></i> Usuário</label>
+                <input type="text" id="username" required autocomplete="username">
+            </div>
+            
+            <div class="input-group">
+                <label for="password"><i class="fas fa-lock"></i> Senha</label>
+                <input type="password" id="password" required autocomplete="current-password">
+                <button type="button" class="show-password" id="showPassword">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            
+            <div class="input-group" id="codeGroup" style="display: none;">
+                <label for="code"><i class="fas fa-shield-alt"></i> Código de Verificação</label>
+                <input type="text" id="code" maxlength="6">
+                <small>Enviado para seu webhook</small>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Entrar
+            </button>
+            
+            <div class="login-footer">
+                <p id="attemptsCount">Tentativas restantes: 3</p>
+                <p id="banMessage" class="error-message"></p>
+            </div>
+        </form>
+        
+        <div class="users-info">
+            <h3><i class="fas fa-users"></i> Usuários Autorizados:</h3>
+            <ul>
+                <li>Gabriel - carlinhos</li>
+                <li>Matheus - MatheusCosta</li>
+                <li>Erik - ErikSlava</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="js/security.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
