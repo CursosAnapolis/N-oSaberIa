@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Secreto - Sala Principal</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles/chat.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -12,129 +12,136 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
-                <h2><i class="fas fa-ghost"></i> Chat Secreto</h2>
-                <div class="user-info">
-                    <span id="currentUser">Usuário</span>
-                    <button class="logout-btn" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
+                <h2><i class="fas fa-skull-crossbones"></i> SECRET ROOM</h2>
+                <div class="user-info" id="currentUserInfo">
+                    <i class="fas fa-user-secret"></i>
+                    <span>Carregando...</span>
                 </div>
             </div>
             
-            <div class="users-list">
-                <h3><i class="fas fa-users"></i> Online</h3>
-                <ul id="onlineUsers">
-                    <!-- Usuários online serão listados aqui -->
-                </ul>
+            <div class="online-users">
+                <h3><i class="fas fa-users"></i> CONECTADOS</h3>
+                <div class="users-list" id="usersList">
+                    <!-- Lista de usuários será carregada via JS -->
+                </div>
             </div>
             
-            <div class="settings" id="settingsSection">
-                <h3><i class="fas fa-cog"></i> Configurações</h3>
-                <button class="settings-btn" id="editProfileBtn">
-                    <i class="fas fa-user-edit"></i> Editar Perfil
-                </button>
-                <button class="settings-btn" id="changeWebhookBtn">
-                    <i class="fas fa-link"></i> Alterar Webhook
-                </button>
-                <button class="settings-btn" id="addUserBtn" style="display: none;">
-                    <i class="fas fa-user-plus"></i> Adicionar Usuário
-                </button>
+            <div class="settings-section">
+                <h3><i class="fas fa-cog"></i> CONFIGURAÇÕES</h3>
+                <div class="settings-options">
+                    <button class="settings-btn" id="profileBtn">
+                        <i class="fas fa-user-edit"></i> Perfil
+                    </button>
+                    <button class="settings-btn" id="webhookBtn">
+                        <i class="fas fa-link"></i> Webhook
+                    </button>
+                    <button class="settings-btn" id="securityBtn">
+                        <i class="fas fa-shield-alt"></i> Segurança
+                    </button>
+                    
+                    <div class="admin-section" id="adminSection" style="display: none;">
+                        <h4><i class="fas fa-crown"></i> ADMIN</h4>
+                        <button class="settings-btn admin-btn" id="addUserBtn">
+                            <i class="fas fa-user-plus"></i> Novo Usuário
+                        </button>
+                        <button class="settings-btn admin-btn" id="viewLogsBtn">
+                            <i class="fas fa-history"></i> Logs
+                        </button>
+                    </div>
+                    
+                    <button class="settings-btn logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
             </div>
         </div>
         
-        <!-- Área principal do chat -->
-        <div class="main-chat">
+        <!-- Chat Area -->
+        <div class="chat-area">
             <div class="chat-header">
-                <h2><i class="fas fa-comments"></i> Sala Principal</h2>
-                <div class="chat-info">
-                    <span id="messageCount">0 mensagens</span>
-                    <span id="lastSeen">Última atualização: agora</span>
+                <div class="chat-title">
+                    <h1><i class="fas fa-comments"></i> SALA SECRETA</h1>
+                    <p class="chat-subtitle">Conversas protegidas por criptografia</p>
+                </div>
+                <div class="chat-status">
+                    <span class="status-indicator active"></span>
+                    <span id="connectionStatus">Conectado</span>
                 </div>
             </div>
             
             <div class="messages-container" id="messagesContainer">
                 <!-- Mensagens serão carregadas aqui -->
                 <div class="welcome-message">
-                    <h3>Bem-vindo ao Chat Secreto!</h3>
-                    <p>As mensagens são seguras e enviadas via webhook.</p>
+                    <i class="fas fa-lock"></i>
+                    <h3>SALA SEGURA</h3>
+                    <p>As mensagens aqui são criptografadas e autodestrutivas</p>
                 </div>
             </div>
             
-            <div class="message-input">
-                <div class="input-options">
-                    <button class="option-btn" id="imageBtn" title="Enviar imagem">
+            <div class="message-input-area">
+                <div class="input-tools">
+                    <button class="tool-btn" id="imageBtn" title="Enviar imagem">
                         <i class="fas fa-image"></i>
                     </button>
-                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                    <button class="tool-btn" id="fileBtn" title="Enviar arquivo">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <button class="tool-btn" id="formatBtn" title="Formatação">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button class="tool-btn" id="clearBtn" title="Limpar">
+                        <i class="fas fa-eraser"></i>
+                    </button>
                 </div>
-                <input type="text" id="messageInput" placeholder="Digite sua mensagem...">
-                <button class="send-btn" id="sendBtn">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
+                
+                <div class="message-input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Digite sua mensagem secreta... (Shift+Enter para nova linha)"
+                        rows="3"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                
+                <div class="input-info">
+                    <span id="charCount">0/2000</span>
+                    <span class="encryption-info">
+                        <i class="fas fa-lock"></i> Criptografado
+                    </span>
+                </div>
+                
+                <input type="file" id="fileUpload" accept="image/*" style="display: none;">
             </div>
         </div>
         
-        <!-- Modal de configurações -->
-        <div class="modal" id="settingsModal">
+        <!-- Modal para upload de imagem -->
+        <div class="modal" id="imageModal">
             <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h3><i class="fas fa-user-cog"></i> Configurações do Perfil</h3>
-                
-                <form id="profileForm">
-                    <div class="form-group">
-                        <label>Novo Nome de Usuário</label>
-                        <input type="text" id="newUsername">
+                <div class="modal-header">
+                    <h3><i class="fas fa-image"></i> ENVIAR IMAGEM</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Arraste e solte ou clique para selecionar</p>
+                        <p class="upload-info">PNG, JPG, GIF • Máx. 5MB</p>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Nova Senha</label>
-                        <input type="password" id="newPassword">
+                    <div class="image-preview" id="imagePreview"></div>
+                    <div class="modal-actions">
+                        <button class="modal-btn secondary" id="cancelUpload">Cancelar</button>
+                        <button class="modal-btn primary" id="confirmUpload" disabled>Enviar</button>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Confirmar Nova Senha</label>
-                        <input type="password" id="confirmPassword">
-                    </div>
-                    
-                    <button type="submit" class="save-btn">
-                        <i class="fas fa-save"></i> Salvar Alterações
-                    </button>
-                </form>
-            </div>
-        </div>
-        
-        <!-- Modal para adicionar usuário (apenas Erik) -->
-        <div class="modal" id="addUserModal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h3><i class="fas fa-user-plus"></i> Adicionar Novo Usuário</h3>
-                
-                <form id="addUserForm">
-                    <div class="form-group">
-                        <label>Nome do Usuário</label>
-                        <input type="text" id="newUserUsername" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Senha</label>
-                        <input type="password" id="newUserPassword" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Webhook URL</label>
-                        <input type="text" id="newUserWebhook" required>
-                    </div>
-                    
-                    <button type="submit" class="save-btn">
-                        <i class="fas fa-user-plus"></i> Adicionar Usuário
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
     
-    <script src="js/security.js"></script>
-    <script src="js/chat.js"></script>
-    <script src="js/webhook.js"></script>
+    <!-- Scripts -->
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/chat.js"></script>
+    <script src="scripts/admin.js"></script>
 </body>
-  </html>
+</html>
